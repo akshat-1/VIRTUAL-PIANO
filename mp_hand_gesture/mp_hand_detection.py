@@ -14,12 +14,17 @@ class pianokeys():
     #     self.bottom = bottom
         
     def draw(self , image, i):
-         cv2.rectangle(image,(103 -12 + 95*i,409- offset) , (148-12+ 95*i +4,682 -offset) , (255,255,255), cv2.FILLED) # middle part
-         cv2.rectangle(image,(80 -12+ 95*i +4,591 - offset) , (103-12+ 95*i +4,682-offset) , (255,255,255), cv2.FILLED) # begining part
-         cv2.rectangle(image,(148-12+ 95*i +4,591 - offset) , (171-12+ 95*i +4,682 -offset) , (255,255,255), cv2.FILLED) #ending part
+         cv2.rectangle(image,(91 + 95*i,409- offset) , (140+ 95*i,727 -offset) , (255,255,255), cv2.FILLED) # middle part
+         cv2.rectangle(image,(72+ 95*i,591 - offset) , (95+ 95*i,727-offset) , (255,255,255), cv2.FILLED) # begining part
+         cv2.rectangle(image,(140+ 95*i,591 - offset) , (163+ 95*i,727 -offset) , (255,255,255), cv2.FILLED) #ending part
+    def addblackkeys(self,image,i):
+       #take input from draw fxn to add a black key at the position 
+        if(i != 1 and i!= 5 and i!= 8):
+            cv2.rectangle(image,(45 + (i+1)*95 ,409 - offset) , (91 + (i+1)* 95 , 591 - offset) , (0,0,0), cv2.FILLED)
+        else:
+            cv2.rectangle(image,(140+ 95*i, 409- offset) , (163+ 95*i, 591 - offset) , (255,255,255), cv2.FILLED)
+            cv2.rectangle(image,(167+ 95*i , 409- offset) , (190+ 95*i , 591 - offset) , (255,255,255), cv2.FILLED)
 
-
-    
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -55,17 +60,19 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
         # Detections
         print(results)
     #start
-        cv2.rectangle(image,(0,409 -offset) , (45,682 - offset) , (0,0,0), cv2.FILLED) 
-        cv2.rectangle(image,(45,409+182 - offset) , (45+23,682 - offset) , (0,0,0), cv2.FILLED)
+        cv2.rectangle(image,(0,409 -offset) , (45,727 - offset) , (255,255,255), cv2.FILLED) 
+        cv2.rectangle(image,(45,591 - offset) , (68,727- offset) , (255,255,255), cv2.FILLED)
+        cv2.rectangle(image,(45,409 - offset) , (91,591 - offset) , (0,0,0), cv2.FILLED)
     #loop
         for i in range(12):
             keys = pianokeys()
 
             keys.draw(image , i )
+            keys.addblackkeys(image , i)
         
     #end
-        cv2.rectangle(image,(1204+23+8,409 - offset) , (1204+23+45+8,682- offset) , (0,0,0), cv2.FILLED)
-        cv2.rectangle(image,(1204+8,409+182- offset) , (1204+23+8,682 -offset) , (0,0,0), cv2.FILLED)
+        cv2.rectangle(image,(1235,409 - offset) , (1280,727- offset) , (255,255,255), cv2.FILLED)
+        cv2.rectangle(image,(1212,591- offset) , (1235,727 -offset) , (255,255,255), cv2.FILLED)
 
 
         
