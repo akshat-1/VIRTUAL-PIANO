@@ -1,7 +1,6 @@
 import mediapipe as mp
 import cv2
 import numpy as np
-import uuid
 import os
 from pianokeys import pianokeys
 from Playsound import node
@@ -90,7 +89,8 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
 
             ThumbLandmark = results.multi_hand_landmarks[0].landmark[mp_hands.HandLandmark.THUMB_TIP]
             ThumbCoordinatesLandmark = mp_drawing._normalized_to_pixel_coordinates(ThumbLandmark.x, ThumbLandmark.y, frameWidth, frameHeight)
-
+            
+                # defining instance of class node
             Index =  node(is_index , (IndexCoordinatesLandmark[0] , IndexCoordinatesLandmark[1]))
             Middle =  node(is_middle , (MiddleCoordinatesLandmark[0] , MiddleCoordinatesLandmark[1]))
             Ring = node(is_ring , (RingCoordinatesLandmark[0] , RingCoordinatesLandmark[1]))
