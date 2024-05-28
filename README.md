@@ -7,6 +7,10 @@
 <br>
 <p><b> NOTE: BEFORE RUNNING THE CODE MAKE SURE THAT WORKING DIRECTORY IS "..\VIRTUAL PIANO\VIRTUAL-PIANO\mp_hand_gesture\piano_sounds\first" ELSE IT WILL GIVE ERROR </b></p>
 <br>
+<br>
+<h2> INSTALLATION </h2>
+<br>
+<p> RUN THE mp_hand_detection.py file found in -> ..\VIRTUAL-PIANO\mp_hand_gesture\mp_hand_detection.py </p>
 <p> IF YOU WANT TO CONTRIBUTE OR GIVE SOME SUGESSTIONS FEEL FREE TO OPEN A PULL REQUEST OR A ISSUE</p>
 <Kh2> LIBRARIES USED </h2>
 <br>
