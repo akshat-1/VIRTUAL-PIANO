@@ -8,10 +8,10 @@ from Playsound import node
 
 offset =int(273)
 # 1 cm = 45.454545 px as in opencv
-is_index = False
-is_middle = False
-is_ring = False
-is_thumb = False
+
+is_discont = False
+
+vis = [False for _ in range(50)]
 
 
 
@@ -25,6 +25,24 @@ cap.set(4,1080)
 
 frameWidth = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 frameHeight = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+contu = [ [(0,409 -offset) , (45 , 409 - offset) , (45 , 591 - offset) , (68,591 - offset) , (68,727 - offset), (0,727 - offset)],
+              [(45,409 - offset) ,(91,409-offset), (91,591 - offset) , (45 , 591 -offset)]
+            ]
+
+for i in range(12):
+    if(i != 1 and i!= 5 and i!= 8 and is_discont == False):
+                contu.append([(91 + 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
+                contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
+    elif(i != 1 and i!= 5 and i!= 8 and is_discont == True):
+                contu.append([(72+ 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset)])
+                contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
+                is_discont = False
+    else:
+                contu.append([(91 + 95*i,409- offset) ,(163+95*i , 409 -offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
+                is_discont = True
+
+contu.append([(1235,409 - offset), (1280 , 409-offset) , (1280,727- offset),(1212,727-offset) , (1212, 591 -offset) , (1212 +23 , 591-offset)])
+
 
 with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) as hands: 
     while cap.isOpened():
@@ -91,23 +109,33 @@ with mp_hands.Hands(min_detection_confidence=0.8, min_tracking_confidence=0.5) a
             ThumbCoordinatesLandmark = mp_drawing._normalized_to_pixel_coordinates(ThumbLandmark.x, ThumbLandmark.y, frameWidth, frameHeight)
             
                 # defining instance of class node
-            Index =  node(is_index , (IndexCoordinatesLandmark[0] , IndexCoordinatesLandmark[1]))
-            Middle =  node(is_middle , (MiddleCoordinatesLandmark[0] , MiddleCoordinatesLandmark[1]))
-            Ring = node(is_ring , (RingCoordinatesLandmark[0] , RingCoordinatesLandmark[1]))
-            Thumb = node(is_thumb , (ThumbCoordinatesLandmark[0] , ThumbCoordinatesLandmark[1]))
+            # Index =  node(is_index , (IndexCoordinatesLandmark[0] , IndexCoordinatesLandmark[1]))
+            # Middle =  node(is_middle , (MiddleCoordinatesLandmark[0] , MiddleCoordinatesLandmark[1]))
+            # Ring = node(is_ring , (RingCoordinatesLandmark[0] , RingCoordinatesLandmark[1]))
+            # Thumb = node(is_thumb , (ThumbCoordinatesLandmark[0] , ThumbCoordinatesLandmark[1]))
 
-            Index.play()
-            is_index = Index.is_playing
+            # Index.play()
+            # is_index = Index.is_playing
 
-            Middle.play()
-            is_middle = Middle.is_playing
+            # del Index
 
-            Ring.play()
-            is_ring = Ring.is_playing
+            # Middle.play()
+            # is_middle = Middle.is_playing
 
-            Thumb.play()
-            is_thumb = Thumb.is_playing
-                
+            # del Middle
+
+            # Ring.play()
+            # is_ring = Ring.is_playing
+
+            # del Ring
+
+            # Thumb.play()
+            # is_thumb = Thumb.is_playing
+
+            # del Thumb
+            playit = node(vis , (IndexCoordinatesLandmark[0] , IndexCoordinatesLandmark[1]) , (MiddleCoordinatesLandmark[0] , MiddleCoordinatesLandmark[1]), (RingCoordinatesLandmark[0] , RingCoordinatesLandmark[1]), (ThumbCoordinatesLandmark[0] , ThumbCoordinatesLandmark[1]), contu)
+
+            playit.play()  
 
 
 

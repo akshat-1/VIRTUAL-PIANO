@@ -8,29 +8,34 @@ from playsound2 import get_node
 
 offset = int(273)
 class node(): 
-    is_discont = False
+    # is_discont = False
     is_playing =False
-    contu = [ [(0,409 -offset) , (45 , 409 - offset) , (45 , 591 - offset) , (68,591 - offset) , (68,727 - offset), (0,727 - offset)],
-              [(45,409 - offset) ,(91,409-offset), (91,591 - offset) , (45 , 591 -offset)]
-            ]
+    # contu = [ [(0,409 -offset) , (45 , 409 - offset) , (45 , 591 - offset) , (68,591 - offset) , (68,727 - offset), (0,727 - offset)],
+    #           [(45,409 - offset) ,(91,409-offset), (91,591 - offset) , (45 , 591 -offset)]
+    #         ]
      #making a constructor
-    def __init__(self , is_playing   , point):
-        self.is_playing = is_playing
-         
-        self.point = point
-        for i in range(12):
-            if(i != 1 and i!= 5 and i!= 8 and self.is_discont == False):
-                self.contu.append([(91 + 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
-                self.contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
-            elif(i != 1 and i!= 5 and i!= 8 and self.is_discont == True):
-                self.contu.append([(72+ 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset)])
-                self.contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
-                self.is_discont = False
-            else:
-                self.contu.append([(91 + 95*i,409- offset) ,(163+95*i , 409 -offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
-                self.is_discont = True
+    def __init__(self , vis   , pointI, pointM, pointR, pointT, contu):
+        self.vis = vis  
+        # self.is_playing = is_playing  
+        self.index = pointI
+        self.middle = pointM
+        self.ring = pointR
+        self.thumb = pointT
+        self.contu = contu
 
-        self.contu.append([(1235,409 - offset), (1280 , 409-offset) , (1280,727- offset),(1212,727-offset) , (1212, 591 -offset) , (1212 +23 , 591-offset)])
+        # for i in range(12):
+        #     if(i != 1 and i!= 5 and i!= 8 and self.is_discont == False):
+        #         self.contu.append([(91 + 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
+        #         self.contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
+        #     elif(i != 1 and i!= 5 and i!= 8 and self.is_discont == True):
+        #         self.contu.append([(72+ 95*i,409- offset) ,(140+ 95*i , 409 -offset),(140+ 95*i,591 - offset),(163+95*i , 591 - offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset)])
+        #         self.contu.append([(45 + (i+1)*95 ,409 - offset) ,(91 + (i+1)* 95,409 - offset), (91 + (i+1)* 95 , 591 - offset) , (45 + (i+1)*95 ,591 - offset)])
+        #         self.is_discont = False
+        #     else:
+        #         self.contu.append([(91 + 95*i,409- offset) ,(163+95*i , 409 -offset), (163+ 95*i,727 -offset) , (72 + 95*i, 727 -offset),(72+ 95*i,591 - offset),(91 + 95*i , 591 - offset)])
+        #         self.is_discont = True
+
+        # self.contu.append([(1235,409 - offset), (1280 , 409-offset) , (1280,727- offset),(1212,727-offset) , (1212, 591 -offset) , (1212 +23 , 591-offset)])
 
                 
 
@@ -38,17 +43,22 @@ class node():
     
     #methord
     def play(self):
-        j =0
-        points  = Point(self.point[0] , self.point[1])
+         j=0
+         pointI  = Point(self.index[0] , self.index[1])
+         pointM  = Point(self.middle[0] , self.middle[1])
+         pointR  = Point(self.ring[0] , self.ring[1])
+         pointT  = Point(self.thumb[0] , self.thumb[1])
        
-        for i in self.contu:
+         for i in self.contu:
             polygon = Polygon(i)
-            if( polygon.contains(points) == 1 and self.is_playing == False):
-                self.is_playing = True
-                get_node(j)
-            elif(polygon.contains(points) == -1 ):
-                self.is_playing = False
-            j += 1
+            if( (polygon.contains(pointI) == 1 or polygon.contains(pointM) == 1 or polygon.contains(pointR) == 1 or polygon.contains(pointT) == 1) and self.vis[j] == False):
+                 self.vis[j] = True
+                 get_node(j)
+            elif(polygon.contains(pointI) == -1 and polygon.contains(pointM) == -1 and polygon.contains(pointR) == -1 and polygon.contains(pointT) == -1):
+                self.vis[j] = False
+
+            j+=1
+        
             
         
             
