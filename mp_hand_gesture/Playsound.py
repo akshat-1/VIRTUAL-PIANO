@@ -54,7 +54,8 @@ class node():
             if( (polygon.contains(pointI) == 1 or polygon.contains(pointM) == 1 or polygon.contains(pointR) == 1 or polygon.contains(pointT) == 1) and self.vis[j] == False):
                  self.vis[j] = True
                  get_node(j)
-            elif(polygon.contains(pointI) == -1 and polygon.contains(pointM) == -1 and polygon.contains(pointR) == -1 and polygon.contains(pointT) == -1):
+            if((not polygon.contains(pointI)) == 1 and (not polygon.contains(pointM)) == 1 and (not polygon.contains(pointR)) == 1 and (not polygon.contains(pointT)) == 1):
+               if(self.vis[j]):
                 self.vis[j] = False
 
             j+=1
