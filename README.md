@@ -1,8 +1,9 @@
 <p> AKSHAT PORWAL - IITM </p>
 <br>
 <h1>VIRTUAL PIANO</h1>
-https://github.com/akshat-1/VIRTUAL-PIANO/assets/68638399/5655516a-3f99-4544-97d0-14c76a113eaa
 
+
+https://github.com/akshat-1/VIRTUAL-PIANO/assets/68638399/5655516a-3f99-4544-97d0-14c76a113eaa
 <P> This project craters the problem of carrying piano/keyboard to places , with this project you just need to run this program and you are good to go. <br> I work in making this application as realistic and as accurate as possible. This could be the future of creating music  </p>
 
 <br>
